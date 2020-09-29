@@ -9,26 +9,36 @@ const styles = {
 
 const Game = () => {
 
-    const [board, setBoard] = useState(Array(0).fill(null));
+    const [history, setHistory] = useState([Array(0).fill(null)]);
+    const [stepNumber, setStepNumber] = useState(0);
     const [xIsNext, setXisNext] = useState(true);
-    const winner = calculateWinner(board);
+    const winner = calculateWinner(history[stepNumbers]);
 
     const handleClick = () => {
+        const timeInHistory = history.slice(0, stepNumber + 1);
+        const current = timeInHistory[stepNumber];
+        const squares = [...current];
         const boardCopy = [...board];
         // If user click an occupied square or if game is won, return
         if (winner || boardCopy[i]) return;
         // Put an X or an O in the clicked square
-        boardCopy[i] = xIsNext ? 'X' : 'O';
-        setBoard(boardCopy);
+        squares[i] = xIsNext ? 'X' : 'O';
+        setHistory([...timeInHistory, squares]);
+        setStepNumber(timeInHistory.length); 
         setXisNext(!xIsNext);
     }
     const jumpTo = () => {
 
     }
     const renderMoves = () => (
-        <button onClick={() => setBoard(Array(9).fill(null))}>
-            Start Game
-        </button>
+        history.map((_step, move) => {
+            const destination = move ? `Go to move#${move}` : 'Go to start';
+            return (
+                <li key={move}>
+                    <button onClick={() => jumpTo(move)}>{destination}</button>
+                </li>
+            )
+        })        
     )
 
     return (
