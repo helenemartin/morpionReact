@@ -2,7 +2,7 @@ import React from 'react';
 import Square from './Square';
 
 const style = {
-    border: '4px solid red',
+    border: '4px solid coral',
     borderRadius: '10px',
     width: '250px',
     height: '250px',
@@ -11,10 +11,10 @@ const style = {
     gridTemplate: 'repeat(3, 1fr) / repeat(3, 1fr)'
 };
 
-const Board = ({ squares, onClick}) => (
+const Board = ({ squares, onClick }) => (
     <div style={style}>
         {squares.map((square, i) => (
-        <Square  key={i} value={square} onClick={() => onClick("empty value")} />
+            <Square key={i} value={square} onClick={() => onClick(i)} />
         ))}
     </div>
 )
